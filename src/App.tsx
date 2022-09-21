@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
+import Wordle  from './components/Wordle';
 
 const App = () => {
   return (
     <div className="App">
-      
+      <Wordle/>
     </div>
   );
 }
