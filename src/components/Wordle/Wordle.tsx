@@ -1,4 +1,4 @@
-import Word from '../Word/Word';
+import Board from '../Board/Board';
 import Keyboard from '../Keyboard/Keyboard';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,12 +39,7 @@ const Wordle = () => {
                 <button onClick={() => generateWord()}>GENERATE WORD</button>
             </div>
             <div className="inputs-container">
-                <Word/>
-                <Word/>
-                <Word/>
-                <Word/>
-                <Word/>
-                <Word/>
+                <Board/>
             </div>
             <div className="keyboard-container">
                 <Keyboard/>
