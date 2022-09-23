@@ -1,5 +1,5 @@
 import React from 'react';
-import Wordle  from './components/Wordle';
+import Wordle  from './components/Wordle/Wordle';
 
 const App = () => {
   return (
