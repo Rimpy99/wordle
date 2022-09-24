@@ -8,7 +8,7 @@ const Keyboard = () => {
     return(
         <div>
             <div className="kb-row1">
-            {keyboardRow1.map(letter => {
+                {keyboardRow1.map(letter => {
                     return <button>{letter}</button>
                 })}
             </div>
