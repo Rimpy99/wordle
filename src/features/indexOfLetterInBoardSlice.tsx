@@ -1,21 +1,21 @@
-import { createSlide } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface BoardState{
-    value: string[],
+    value: number,
 }
 
-const initialState = {
-    value: [ ],
+const initialState: BoardState = {
+    value: 0,
 }
 
-export const indexOfLetterInBoardSlice = createSlide({
+export const indexOfLetterInBoardSlice = createSlice({
     name: 'board',
     initialState,
     reducers: {
-        
+        changeIndex: (state, { payload }) => {state.value = payload}
     }
 })
 
-export const { changeWord } = indexOfLetterInBoardSlice.actions;
+export const { changeIndex } = indexOfLetterInBoardSlice.actions;
 
 export default indexOfLetterInBoardSlice.reducer;

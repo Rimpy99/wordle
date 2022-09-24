@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice} from '@reduxjs/toolkit';
 
 interface WordState{
     value: string[],
@@ -12,7 +12,7 @@ export const wordSlice = createSlice({
     name: 'word',
     initialState,
     reducers: {
-        changeWord: (state, action: PayloadAction<string[]>) => { state.value = action.payload }, 
+        changeWord: (state, { payload }) => { state.value = payload }, 
     }
 });
 
