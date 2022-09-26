@@ -3,7 +3,7 @@ import Keyboard from '../Keyboard/Keyboard';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
-import { changeWord } from '../../features/wordSlide';
+import { changeWord } from '../../features/wordSlice';
 
 const Wordle = () => {
 

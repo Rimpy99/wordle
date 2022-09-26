@@ -12,10 +12,11 @@ export const indexOfLetterInBoardSlice = createSlice({
     name: 'board',
     initialState,
     reducers: {
-        changeIndex: (state, { payload }) => {state.value = payload}
+        incrementIndex: (state) => {state.value++},
+        decrementIndex: (state) => {state.value--}
     }
 })
 
-export const { changeIndex } = indexOfLetterInBoardSlice.actions;
+export const { incrementIndex, decrementIndex } = indexOfLetterInBoardSlice.actions;
 
 export default indexOfLetterInBoardSlice.reducer;

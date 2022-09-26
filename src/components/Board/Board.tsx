@@ -1,29 +1,15 @@
+import { useSelector } from 'react-redux';
+import { RootState } from "../../app/store";
 
 const Board = () => {
-
-    const board = [
-        ["", "", "", "", ""],
-        ["", "", "", "", ""],
-        ["", "", "", "", ""],
-        ["", "", "", "", ""],
-        ["", "", "", "", ""],
-        ["", "", "", "", ""],
-    ]
-
-    const fillBoard = (letter: any, numberOfAttempt: number, numberOfWordLetter: number) => {
-        return board[numberOfAttempt][numberOfWordLetter] = letter;
-    }
     
+    const board = useSelector((state: RootState) => state.board.value);
+
     return(
         <div className="board-container">
-            <div className="board-row1">
-                <input type="text" maxLength={1} onChange={(e) => fillBoard(e.target.value, 0, 0)}/>
-                <input type="text" maxLength={1} onChange={(e) => fillBoard(e.target.value, 0, 1)}/>
-                <input type="text" maxLength={1} onChange={(e) => fillBoard(e.target.value, 0, 2)}/>
-                <input type="text" maxLength={1} onChange={(e) => fillBoard(e.target.value, 0, 3)}/>
-                <input type="text" maxLength={1} onChange={(e) => fillBoard(e.target.value, 0, 4)}/>
-                <button onClick={() => console.log(board[0])}>kliknij!</button>
-            </div>
+            {board.map(e => {
+                return <div>{e}</div>
+            })}
         </div>
     )
 }
