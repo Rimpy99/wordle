@@ -22,6 +22,15 @@ const Keyboard = () => {
         dispatch(incrementIndex());
     }
 
+    const takeBackLetter = () => {
+        dispatch(decrementIndex());
+
+        dispatch(changeLetter({
+            index: currentIndex,
+            letter: '',
+        }))
+    }
+
     return(
         <div>
             <div className="kb-row1">
@@ -39,7 +48,7 @@ const Keyboard = () => {
                 {keyboardRow3.map(letter => {
                     return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
                 })}
-                <button><MdOutlineBackspace/></button>
+                <button onClick={() => takeBackLetter()}><MdOutlineBackspace/></button>
             </div>
         </div>
     )
