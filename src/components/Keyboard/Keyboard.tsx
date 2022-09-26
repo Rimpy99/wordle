@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { changeLetter } from "../../features/boardSlice";
-import { changeIndex } from "../../features/indexOfLetterInBoardSlice";
+import { incrementIndex, decrementIndex } from "../../features/indexOfLetterInBoardSlice";
 import { RootState } from "../../app/store";
 
 import { MdOutlineBackspace } from "react-icons/md";
@@ -17,25 +17,27 @@ const Keyboard = () => {
         dispatch(changeLetter({
             index: currentIndex,
             letter
-        }))
+        }));
+
+        dispatch(incrementIndex());
     }
 
     return(
         <div>
             <div className="kb-row1">
                 {keyboardRow1.map(letter => {
-                    return <button onClick={() => passLetter(letter)}>{letter}</button>
+                    return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
                 })}
             </div>
             <div className="kb-row2">
                 {keyboardRow2.map(letter => {
-                    return <button onClick={() => passLetter(letter)}>{letter}</button>
+                    return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
                 })}
             </div>
             <div className="kb-row3">
                 <button>ENTER</button>
                 {keyboardRow3.map(letter => {
-                    return <button onClick={() => passLetter(letter)}>{letter}</button>
+                    return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
                 })}
                 <button><MdOutlineBackspace/></button>
             </div>
