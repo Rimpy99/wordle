@@ -17,13 +17,8 @@ const Keyboard = () => {
 
     const currentLetter = useSelector((state: RootState) => state.board.value)
 
-    // const currentLetterIndex = useSelector((state: RootState) => state.letterIndex.value);
-    // const currentRowIndex = useSelector((state: RootState) => state.rowIndex.value);
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     console.log(`ZMIANA: ${currentLetterIndex}`)
-    // }, [currentLetterIndex])
 
     const passLetter = (letter: string) => {
 
@@ -36,7 +31,9 @@ const Keyboard = () => {
                     letter
                 }));
                 
-                setCurrentLetterIndex(current => current + 1);
+                if(currentLetterIndex < 5){
+                    setCurrentLetterIndex(current => current + 1);
+                }
             }
 
         }
@@ -45,23 +42,18 @@ const Keyboard = () => {
 
 
     const takeBackLetter = () => {
-        
-        dispatch(decrementLetterIndex());
+        console.log(currentLetterIndex)
+        if(currentLetterIndex > 0){
 
-        console.log(`current let index: ${currentLetterIndex}`)
+            dispatch(changeLetter({
+                rowIndex: currentRowIndex,
+                letterIndex: currentLetterIndex - 1,
+                letter: '',
+            }))
 
-        // dispatch(changeLetter({
-        //     rowIndex: currentRowIndex,
-        //     letterIndex: currentLetterIndex,
-        //     letter: '',
-        // }))
+            setCurrentLetterIndex(current => current - 1)
 
-
-        // console.log(currentLetterIndex)
-
-        
-
-
+        }
     }
 
     const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
@@ -77,7 +69,9 @@ const Keyboard = () => {
             if(currentLetter[currentRowIndex][4]){
                 setCurrentRowIndex(current => current + 1)
                 setCurrentLetterIndex(current => current = 0)
+                console.log(currentRowIndex);
             }
+
         }else{
 
             keyboardRow1.forEach(letter => {
@@ -94,7 +88,7 @@ const Keyboard = () => {
 
         }
 
-    }, [ currentLetterIndex, currentRowIndex ])
+    }, [ currentLetterIndex, currentRowIndex, currentLetter ])
 
     useEffect(() => {
         document.addEventListener('keydown', addSignFromKeyboard);
