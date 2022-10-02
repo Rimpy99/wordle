@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLetter } from "../../features/boardSlice";
 import { incrementLetterIndex, decrementLetterIndex, setToZeroLetterIndex } from "../../features/indexOfLetterInBoardSlice";
@@ -12,37 +12,55 @@ const Keyboard = () => {
     const keyboardRow2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
     const keyboardRow3 = ["Z", "X", "C", "V", "B", "N", "M"];
 
-    const currentLetterIndex = useSelector((state: RootState) => state.letterIndex.value);
-    const currentRowIndex = useSelector((state: RootState) => state.rowIndex.value);
+    const [currentRowIndex, setCurrentRowIndex] = useState<number>(0); 
+    const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0); 
+
+    const currentLetter = useSelector((state: RootState) => state.board.value)
+
+    // const currentLetterIndex = useSelector((state: RootState) => state.letterIndex.value);
+    // const currentRowIndex = useSelector((state: RootState) => state.rowIndex.value);
     const dispatch = useDispatch();
 
+    // useEffect(() => {
+    //     console.log(`ZMIANA: ${currentLetterIndex}`)
+    // }, [currentLetterIndex])
+
     const passLetter = (letter: string) => {
-        // if(currentLetterIndex === 4){
-        //     dispatch(incrementRowIndex());
-        //     dispatch(setToZeroLetterIndex());
-        // }
 
-        if(currentLetterIndex < 5 && currentRowIndex < 6){
-
-            dispatch(changeLetter({
-                rowIndex: currentRowIndex,
-                letterIndex: currentLetterIndex,
-                letter
-            }));
-    
-            dispatch(incrementLetterIndex());
+        if(currentLetterIndex <= 4 && currentRowIndex < 6){
+            
+            if(!currentLetter[currentRowIndex][currentLetterIndex]){
+                dispatch(changeLetter({ 
+                    rowIndex: currentRowIndex,
+                    letterIndex: currentLetterIndex,
+                    letter
+                }));
+                
+                setCurrentLetterIndex(current => current + 1);
+            }
 
         }
 
     }
 
+
     const takeBackLetter = () => {
+        
         dispatch(decrementLetterIndex());
 
-        dispatch(changeLetter({
-            letterIndex: currentLetterIndex,
-            letter: '',
-        }))
+        console.log(`current let index: ${currentLetterIndex}`)
+
+        // dispatch(changeLetter({
+        //     rowIndex: currentRowIndex,
+        //     letterIndex: currentLetterIndex,
+        //     letter: '',
+        // }))
+
+
+        // console.log(currentLetterIndex)
+
+        
+
 
     }
 
@@ -50,14 +68,16 @@ const Keyboard = () => {
 
         const key = event.key.toUpperCase();
 
-        console.log(key)
-
         if(key === 'BACKSPACE'){
             takeBackLetter();
         }else if(key === 'ENTER'){
+
             console.log('ENTER')
-            dispatch(incrementRowIndex());
-            dispatch(setToZeroLetterIndex());
+
+            if(currentLetter[currentRowIndex][4]){
+                setCurrentRowIndex(current => current + 1)
+                setCurrentLetterIndex(current => current = 0)
+            }
         }else{
 
             keyboardRow1.forEach(letter => {
