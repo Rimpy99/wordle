@@ -11,7 +11,7 @@ interface BoardState{
 
 const initialState: BoardState = {
     value: [
-        ['A', 'C', 'D', 'E', 'F'],
+        ['', '', '', '', ''],
         ['', '', '', '', ''],
         ['', '', '', '', ''],
         ['', '', '', '', ''],
@@ -25,7 +25,7 @@ export const boardSlice = createSlice({
     initialState,
     reducers: {
         changeLetter: (state, action) => { 
-            state.value[0][action.payload.index] = action.payload.letter
+            state.value[action.payload.rowIndex][action.payload.letterIndex] = action.payload.letter
         },
     }
 })
