@@ -1,0 +1,18 @@
+@use '../Variables';
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body{
+    background-image: url("../../images/background.png");
+    height: 100vh;
+}
+
+input, h1{
+    font-family: Variables.$font;
+}

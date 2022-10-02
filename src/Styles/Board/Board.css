@@ -1,0 +1,26 @@
+.board-container {
+  width: 380px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.board-container__row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.board-container__row__letter {
+  color: white;
+  width: 70px;
+  height: 70px;
+  background-color: rgb(137, 171, 227);
+  margin: 15px 0;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Noto Sans";
+  font-weight: 700;
+  border-radius: 5px;
+}/*# sourceMappingURL=Board.css.map */

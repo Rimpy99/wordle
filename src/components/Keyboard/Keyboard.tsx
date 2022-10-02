@@ -1,6 +1,7 @@
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLetter } from "../../features/boardSlice";
-import { incrementIndex, decrementIndex } from "../../features/indexOfLetterInBoardSlice";
+import { incrementLetterIndex, decrementLetterIndex } from "../../features/indexOfLetterInBoardSlice";
 import { RootState } from "../../app/store";
 
 import { MdOutlineBackspace } from "react-icons/md";
@@ -19,17 +20,56 @@ const Keyboard = () => {
             letter
         }));
 
-        dispatch(incrementIndex());
+        dispatch(incrementLetterIndex());
     }
 
     const takeBackLetter = () => {
-        dispatch(decrementIndex());
+        dispatch(decrementLetterIndex());
 
         dispatch(changeLetter({
             index: currentIndex,
             letter: '',
         }))
+
+        if(currentIndex === 4){
+            // currentRow++;
+        }
     }
+
+    const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
+
+        const key = event.key.toUpperCase();
+
+        if(key === 'Backspace'){
+            takeBackLetter();
+        }else if(key === 'Enter'){
+            //check row
+        }else{
+
+            keyboardRow1.forEach(letter => {
+                letter === key && passLetter(letter);
+            });
+
+            keyboardRow2.forEach(letter => {
+                letter === key && passLetter(letter);
+            });
+
+            keyboardRow3.forEach(letter => {
+                letter === key && passLetter(letter);
+            });
+
+        }
+
+    }, [ currentIndex ])
+
+    useEffect(() => {
+        document.addEventListener('keydown', addSignFromKeyboard);
+
+        return () => {
+            document.removeEventListener('keydown', addSignFromKeyboard)
+        }
+
+    }, [addSignFromKeyboard])
 
     return(
         <div>

@@ -1,0 +1,33 @@
+.app-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+.app-container__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.app-container__header h1 {
+  font-weight: 800;
+  letter-spacing: 3px;
+  font-size: 50px;
+  color: rgb(230, 114, 139);
+}
+.app-container__header button {
+  padding: 10px;
+  background-color: rgb(137, 171, 227);
+  border: none;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  color: white;
+  cursor: pointer;
+  transition: scale 0.1s ease-in-out;
+}
+.app-container__header button:hover {
+  scale: 1.1;
+}/*# sourceMappingURL=Wordle.css.map */

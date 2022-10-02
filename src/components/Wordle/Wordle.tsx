@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
 import { changeWord } from '../../features/wordSlice';
 
+import '../../Styles/Wordle/Wordle.css';
+
 const Wordle = () => {
 
     const wordle = useSelector((state: RootState) => state.word.value);
@@ -34,14 +36,14 @@ const Wordle = () => {
 
     return(
         <div className="app-container">
-            <div className="header">
+            <div className="app-container__header">
                 <h1>WORDLE</h1>
                 <button onClick={() => generateWord()}>GENERATE WORD</button>
             </div>
-            <div className="inputs-container">
+            <div>
                 <Board/>
             </div>
-            <div className="keyboard-container">
+            <div>
                 <Keyboard/>
             </div>
         </div>
@@ -49,3 +51,4 @@ const Wordle = () => {
 };
 
 export default Wordle;
+
