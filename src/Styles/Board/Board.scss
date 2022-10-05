@@ -16,7 +16,6 @@
             color: white;
             width: 100px;
             height: 100px;
-            background-color: Variables.$blue;
             margin: 15px 0;
             font-size: 50px;
             display: flex;
@@ -25,6 +24,18 @@
             font-family: Variables.$font;
             font-weight: 700;
             border-radius: 5px;
+
+            &--default{
+                background-color: Variables.$blue;
+            }
+
+            &--green{
+                background-color: green;
+            }
+
+            &--yellow{
+                background-color: yellow;
+            }
         }
     }
 }

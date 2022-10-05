@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface BoardState{
-    value: string[][],
+    value: {key: string, color: string}[][],
 }
 
 // interface ActionObject{
@@ -11,12 +11,12 @@ interface BoardState{
 
 const initialState: BoardState = {
     value: [
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
-        ['', '', '', '', ''],
+        [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+        [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+        [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+        [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+        [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+        [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
     ],
 }
 
@@ -25,7 +25,8 @@ export const boardSlice = createSlice({
     initialState,
     reducers: {
         changeLetter: (state, action) => { 
-            state.value[action.payload.rowIndex][action.payload.letterIndex] = action.payload.letter
+            state.value[action.payload.rowIndex][action.payload.letterIndex].key = action.payload.letterData.key;
+            state.value[action.payload.rowIndex][action.payload.letterIndex].color = action.payload.letterData.color;
         },
     }
 })

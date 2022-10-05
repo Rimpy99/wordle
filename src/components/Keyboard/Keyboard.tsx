@@ -22,19 +22,19 @@ const Keyboard = () => {
 
     const word = useSelector((state: RootState) => state.word.value);
     
-    const [greenLetters, setGreenLetters] =  useState<string[]>([]);
-    const [yellowLetters, setYellowLetters] =  useState<string[]>([]);
     const [greyLetters, setGreyLetters] =  useState<string[]>([]);
 
     useEffect(() => {
-        console.log(`GREEN ${greenLetters}`);
-        console.log(`YELLOW ${yellowLetters}`);
         console.log(`GREY ${greyLetters}`);
-    }, [greenLetters, yellowLetters, greyLetters])
+    }, [greyLetters])
     
     const [currentRowIndex, setCurrentRowIndex] = useState<number>(0); 
     const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0); 
-    const currentLetter = useSelector((state: RootState) => state.board.value)
+    const currentBoard = useSelector((state: RootState) => state.board.value)
+
+    useEffect(() => {
+        console.log(currentBoard);
+    }, [currentBoard])
 
     const dispatch = useDispatch();
 
@@ -44,11 +44,14 @@ const Keyboard = () => {
             
             if(currentLetterIndex <= 4 && currentRowIndex < 6){
                 
-                if(!currentLetter[currentRowIndex][currentLetterIndex]){
+                if(currentBoard[currentRowIndex][currentLetterIndex].key == '' && currentBoard[currentRowIndex][currentLetterIndex].color == ''){
                     dispatch(changeLetter({ 
                         rowIndex: currentRowIndex,
                         letterIndex: currentLetterIndex,
-                        letter
+                        letterData: {
+                            key: letter,
+                            color: '',
+                        }
                     }));
                     
                     if(currentLetterIndex < 5){
@@ -69,7 +72,10 @@ const Keyboard = () => {
             dispatch(changeLetter({
                 rowIndex: currentRowIndex,
                 letterIndex: currentLetterIndex - 1,
-                letter: '',
+                letterData: {
+                    key: '',
+                    color: '',
+                }
             }))
 
             setCurrentLetterIndex(current => current - 1)
@@ -78,20 +84,36 @@ const Keyboard = () => {
     }
 
     const enterClicked = () => {
-        if(currentLetter[currentRowIndex][4]){
+        if(currentBoard[currentRowIndex][4].key != ''){
 
-            currentLetter[currentRowIndex].forEach((letter, letterIndex) => {
+            currentBoard[currentRowIndex].forEach((letter, letterIndex) => {
 
-                if(word.includes(letter)){
+                if(word.includes(letter.key)){
 
-                    if(word[letterIndex] == letter){
-                        setGreenLetters(state => [...state, letter]);
+                    if(word[letterIndex] == letter.key){
+                        // currentBoard[currentRowIndex][letterIndex] = {key: letter.key, color: 'green'}
+                        dispatch(changeLetter({ 
+                            rowIndex: currentRowIndex,
+                            letterIndex: letterIndex,
+                            letterData: {
+                                key: letter.key,
+                                color: 'green',
+                            }
+                        }));
                     }else{
-                        setYellowLetters(state => [...state, letter]);
+                        // currentBoard[currentRowIndex][letterIndex] = {key: letter.key, color: 'yellow'}
+                        dispatch(changeLetter({ 
+                            rowIndex: currentRowIndex,
+                            letterIndex: letterIndex,
+                            letterData: {
+                                key: letter.key,
+                                color: 'yellow',
+                            }
+                        }));
                     }
 
                 }else{
-                    setGreyLetters(state => [...state, letter]);
+                    setGreyLetters(state => [...state, letter.key]);
                 }
 
                 
@@ -139,7 +161,7 @@ const Keyboard = () => {
         }
 
 
-    }, [ currentLetterIndex, currentRowIndex, currentLetter ])
+    }, [ currentLetterIndex, currentRowIndex, currentBoard ])
 
     useEffect(() => {
         document.addEventListener('keydown', addSignFromKeyboard);
@@ -154,8 +176,6 @@ const Keyboard = () => {
         <div className="keyboard">
             <div className="keyboard__row">
                 {keyboardRow1.map(letter => {
-                    console.log('rerender')
-
                     return <button 
                         className={`keyboard__row__key ${greyLetters.includes(letter) ? 'keyboard__row__key--grey' : 'keyboard__row__key--default'}`}
                         onClick={() => passLetter(letter)} 

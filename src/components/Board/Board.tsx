@@ -14,8 +14,19 @@ const Board = () => {
                 return (
                     <div className='board-container__row'>
                     {array.map<ReactElement<any, any>>(letter => {
+                        let styles = 'default';
+
+                        switch(letter.color){
+                            case 'green':
+                                styles = 'green';
+                                break;
+                            case 'yellow':
+                                styles = 'yellow';
+                                break;
+                        }
+
                         return (
-                            <div className='board-container__row__letter'>{letter}</div>
+                            <div className={`board-container__row__letter board-container__row__letter--${styles}`}>{letter.key}</div>
                         )
                     })}
                     </div>

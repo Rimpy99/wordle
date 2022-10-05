@@ -18,24 +18,29 @@ const Wordle = () => {
     useEffect(() => {
 
         const generateWord = () => {
-            const options = {
-                method: 'GET',
-                headers: {
-                    'X-RapidAPI-Key': '833b890155msh1ca20a36151e1fbp16e950jsn0081b518715c',
-                    'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
-                }
-            };
+            // const options = {
+            //     method: 'GET',
+            //     headers: {
+            //         'X-RapidAPI-Key': '833b890155msh1ca20a36151e1fbp16e950jsn0081b518715c',
+            //         'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
+            //     }
+            // };
             
-            try{
-                fetch('https://random-words5.p.rapidapi.com/getMultipleRandom?count=1&wordLength=5', options)
-                    .then(response => response.json())
-                    .then(response => {
-                        dispatch(changeWord(response[0].toUpperCase().split('')));
-                        dispatch(changeIsWordGeneratedToTrue());
-                    })
-            }catch(err){
-                console.error(err);
-            };
+            // try{
+            //     fetch('https://random-words5.p.rapidapi.com/getMultipleRandom?count=1&wordLength=5', options)
+            //         .then(response => response.json())
+            //         .then(response => {
+            //             dispatch(changeWord(response[0].toUpperCase().split('')));
+            //             dispatch(changeIsWordGeneratedToTrue());
+            //         })
+            // }catch(err){
+            //     console.error(err);
+            // };
+
+            const word = 'WITAM'
+
+            dispatch(changeWord(word.toUpperCase().split('')));
+            dispatch(changeIsWordGeneratedToTrue());
         }
 
         generateWord()
