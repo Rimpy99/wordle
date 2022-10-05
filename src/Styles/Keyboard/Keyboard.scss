@@ -1,0 +1,41 @@
+@use '../Variables';
+
+@mixin sameStylesForKeys{
+    height: 70px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px; 
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.keyboard{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    &__row{
+
+        &__key{
+            @include sameStylesForKeys;
+            
+            background-color: Variables.$blue;
+            width: 70px;
+        }
+
+        &__special-key{
+            @include sameStylesForKeys; 
+            
+            background-color: Variables.$pink;
+            width: 110px;
+        }
+
+        &__key:hover,
+        &__special-key:hover{
+            scale: 1.1;
+        }
+    }
+}

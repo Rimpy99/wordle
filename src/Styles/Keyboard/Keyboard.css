@@ -1,0 +1,33 @@
+.keyboard {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.keyboard__row__key {
+  height: 70px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: rgb(137, 171, 227);
+  width: 70px;
+}
+.keyboard__row__special-key {
+  height: 70px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: rgb(230, 114, 139);
+  width: 110px;
+}
+.keyboard__row__key:hover, .keyboard__row__special-key:hover {
+  scale: 1.1;
+}/*# sourceMappingURL=Keyboard.css.map */

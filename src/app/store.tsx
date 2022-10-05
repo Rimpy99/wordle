@@ -1,15 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import wordReducer from "../features/wordSlice";
 import boardReducer from "../features/boardSlice";
-import indexOfLetterInBoardReducer from "../features/indexOfLetterInBoardSlice";
-import indexOfRowInBoardReducer from "../features/indexOfRowInBoardSlice";
+import isWordGeneratedReducer from "../features/isWordGeneratedSlice";
 
 const store = configureStore({
     reducer: {
         word: wordReducer,
         board: boardReducer,
-        letterIndex: indexOfLetterInBoardReducer,
-        rowIndex: indexOfRowInBoardReducer,
+        isWordGenerated: isWordGeneratedReducer,
     },
 })
 

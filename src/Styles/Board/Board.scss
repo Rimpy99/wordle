@@ -1,7 +1,7 @@
 @use '../Variables';
 
 .board-container{
-    width: calc(5*70px + 6*5px);
+    width: calc(5*100px + 6*5px);
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -14,8 +14,8 @@
 
         &__letter{
             color: white;
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             background-color: Variables.$blue;
             margin: 15px 0;
             font-size: 50px;

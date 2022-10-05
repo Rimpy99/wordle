@@ -1,13 +1,23 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeLetter } from "../../features/boardSlice";
-import { incrementLetterIndex, decrementLetterIndex, setToZeroLetterIndex } from "../../features/indexOfLetterInBoardSlice";
-import { incrementRowIndex, decrementRowIndex } from "../../features/indexOfRowInBoardSlice";
 import { RootState } from "../../app/store";
+
+import { changeLetter } from "../../features/boardSlice";
+
+import './../../Styles/Keyboard/Keyboard.css';
 
 import { MdOutlineBackspace } from "react-icons/md";
 
 const Keyboard = () => {
+    const [isWordGenerated, setIsWordGenerated] = useState<boolean>(true);
+
+    const isWordGeneratedSelector = useSelector((state: RootState) => state.isWordGenerated.value);
+
+    useEffect(() => {
+        setIsWordGenerated(state => state = isWordGeneratedSelector);
+    }, [isWordGeneratedSelector])
+
+
     const keyboardRow1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
     const keyboardRow2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
     const keyboardRow3 = ["Z", "X", "C", "V", "B", "N", "M"];
@@ -22,18 +32,22 @@ const Keyboard = () => {
 
     const passLetter = (letter: string) => {
 
-        if(currentLetterIndex <= 4 && currentRowIndex < 6){
+        if(isWordGenerated){
             
-            if(!currentLetter[currentRowIndex][currentLetterIndex]){
-                dispatch(changeLetter({ 
-                    rowIndex: currentRowIndex,
-                    letterIndex: currentLetterIndex,
-                    letter
-                }));
+            if(currentLetterIndex <= 4 && currentRowIndex < 6){
                 
-                if(currentLetterIndex < 5){
-                    setCurrentLetterIndex(current => current + 1);
+                if(!currentLetter[currentRowIndex][currentLetterIndex]){
+                    dispatch(changeLetter({ 
+                        rowIndex: currentRowIndex,
+                        letterIndex: currentLetterIndex,
+                        letter
+                    }));
+                    
+                    if(currentLetterIndex < 5){
+                        setCurrentLetterIndex(current => current + 1);
+                    }
                 }
+    
             }
 
         }
@@ -42,7 +56,6 @@ const Keyboard = () => {
 
 
     const takeBackLetter = () => {
-        console.log(currentLetterIndex)
         if(currentLetterIndex > 0){
 
             dispatch(changeLetter({
@@ -60,37 +73,42 @@ const Keyboard = () => {
         if(currentLetter[currentRowIndex][4]){
             setCurrentRowIndex(current => current + 1)
             setCurrentLetterIndex(current => current = 0)
-            console.log(currentRowIndex);
+            console.log();
         }
     }
 
     const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
 
-        const key = event.key.toUpperCase();
+        if(isWordGenerated){
 
-        if(key === 'BACKSPACE'){
-            takeBackLetter();
-        }else if(key === 'ENTER'){
-
-            console.log('ENTER')
-
-            enterClicked();
-
-        }else{
-
-            keyboardRow1.forEach(letter => {
-                letter === key && passLetter(letter);
-            });
-
-            keyboardRow2.forEach(letter => {
-                letter === key && passLetter(letter);
-            });
-
-            keyboardRow3.forEach(letter => {
-                letter === key && passLetter(letter);
-            });
+            const key = event.key.toUpperCase();
+    
+            if(key === 'BACKSPACE'){
+                takeBackLetter();
+            }else if(key === 'ENTER'){
+    
+                console.log('ENTER')
+    
+                enterClicked();
+    
+            }else{
+    
+                keyboardRow1.forEach(letter => {
+                    letter === key && passLetter(letter);
+                });
+    
+                keyboardRow2.forEach(letter => {
+                    letter === key && passLetter(letter);
+                });
+    
+                keyboardRow3.forEach(letter => {
+                    letter === key && passLetter(letter);
+                });
+    
+            }
 
         }
+
 
     }, [ currentLetterIndex, currentRowIndex, currentLetter ])
 
@@ -101,26 +119,48 @@ const Keyboard = () => {
             document.removeEventListener('keydown', addSignFromKeyboard)
         }
 
-    }, [addSignFromKeyboard])
+    }, [addSignFromKeyboard, isWordGenerated])
 
     return(
-        <div>
-            <div className="kb-row1">
+        <div className="keyboard">
+            <div className="keyboard__row">
                 {keyboardRow1.map(letter => {
-                    return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
+                    return <button 
+                        className="keyboard__row__key" 
+                        onClick={() => passLetter(letter)} 
+                        key={letter}>{letter}
+                    </button>
                 })}
             </div>
-            <div className="kb-row2">
+            <div className="keyboard__row">
                 {keyboardRow2.map(letter => {
-                    return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
+                    return <button 
+                        className="keyboard__row__key" 
+                        onClick={() => passLetter(letter)} 
+                        key={letter}>{letter}
+                    </button>
                 })}
             </div>
-            <div className="kb-row3">
-                <button onClick={() => enterClicked()}>ENTER</button>
+            <div className="keyboard__row">
+
+                <button 
+                    className="keyboard__row__special-key" 
+                    onClick={() => enterClicked()}>
+                    ENTER
+                </button>
+
                 {keyboardRow3.map(letter => {
-                    return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
+                    return <button 
+                        className="keyboard__row__key" 
+                        onClick={() => passLetter(letter)} 
+                        key={letter}>{letter}
+                    </button>
                 })}
-                <button onClick={() => takeBackLetter()}><MdOutlineBackspace/></button>
+
+                <button 
+                    className="keyboard__row__special-key" 
+                    onClick={() => takeBackLetter()}><MdOutlineBackspace/>
+                </button>
             </div>
         </div>
     )
