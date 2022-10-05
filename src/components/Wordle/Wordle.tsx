@@ -16,7 +16,7 @@ const Wordle = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        
+
         const generateWord = () => {
             const options = {
                 method: 'GET',
@@ -30,7 +30,7 @@ const Wordle = () => {
                 fetch('https://random-words5.p.rapidapi.com/getMultipleRandom?count=1&wordLength=5', options)
                     .then(response => response.json())
                     .then(response => {
-                        dispatch(changeWord(response[0].split('')));
+                        dispatch(changeWord(response[0].toUpperCase().split('')));
                         dispatch(changeIsWordGeneratedToTrue());
                     })
             }catch(err){

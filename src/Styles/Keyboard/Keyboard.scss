@@ -22,8 +22,16 @@
         &__key{
             @include sameStylesForKeys;
             
-            background-color: Variables.$blue;
             width: 70px;
+
+            &--default{
+                background-color: Variables.$blue;
+            }
+
+            &--grey{
+                background-color: Variables.$blue;
+                filter: brightness(.5);
+            }
         }
 
         &__special-key{
@@ -38,4 +46,8 @@
             scale: 1.1;
         }
     }
+}
+
+.grey-key{
+    background-color: red;
 }

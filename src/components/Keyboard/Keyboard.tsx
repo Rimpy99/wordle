@@ -9,26 +9,34 @@ import './../../Styles/Keyboard/Keyboard.css';
 import { MdOutlineBackspace } from "react-icons/md";
 
 const Keyboard = () => {
-    const [isWordGenerated, setIsWordGenerated] = useState<boolean>(true);
+    const keyboardRow1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
+    const keyboardRow2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
+    const keyboardRow3 = ["Z", "X", "C", "V", "B", "N", "M"];
 
+    const [isWordGenerated, setIsWordGenerated] = useState<boolean>(true);
     const isWordGeneratedSelector = useSelector((state: RootState) => state.isWordGenerated.value);
 
     useEffect(() => {
         setIsWordGenerated(state => state = isWordGeneratedSelector);
     }, [isWordGeneratedSelector])
 
+    const word = useSelector((state: RootState) => state.word.value);
+    
+    const [greenLetters, setGreenLetters] =  useState<string[]>([]);
+    const [yellowLetters, setYellowLetters] =  useState<string[]>([]);
+    const [greyLetters, setGreyLetters] =  useState<string[]>([]);
 
-    const keyboardRow1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
-    const keyboardRow2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-    const keyboardRow3 = ["Z", "X", "C", "V", "B", "N", "M"];
-
+    useEffect(() => {
+        console.log(`GREEN ${greenLetters}`);
+        console.log(`YELLOW ${yellowLetters}`);
+        console.log(`GREY ${greyLetters}`);
+    }, [greenLetters, yellowLetters, greyLetters])
+    
     const [currentRowIndex, setCurrentRowIndex] = useState<number>(0); 
     const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0); 
-
     const currentLetter = useSelector((state: RootState) => state.board.value)
 
     const dispatch = useDispatch();
-
 
     const passLetter = (letter: string) => {
 
@@ -71,9 +79,30 @@ const Keyboard = () => {
 
     const enterClicked = () => {
         if(currentLetter[currentRowIndex][4]){
+
+            currentLetter[currentRowIndex].forEach((letter, letterIndex) => {
+
+                if(word.includes(letter)){
+
+                    if(word[letterIndex] == letter){
+                        setGreenLetters(state => [...state, letter]);
+                    }else{
+                        setYellowLetters(state => [...state, letter]);
+                    }
+
+                }else{
+                    setGreyLetters(state => [...state, letter]);
+                }
+
+                
+            })
+            
             setCurrentRowIndex(current => current + 1)
             setCurrentLetterIndex(current => current = 0)
-            console.log();
+
+            // if(currentLetter[currentRowIndex] == word){
+            //     console.log('trafiles!')
+            // }
         }
     }
 
@@ -125,8 +154,10 @@ const Keyboard = () => {
         <div className="keyboard">
             <div className="keyboard__row">
                 {keyboardRow1.map(letter => {
+                    console.log('rerender')
+
                     return <button 
-                        className="keyboard__row__key" 
+                        className={`keyboard__row__key ${greyLetters.includes(letter) ? 'keyboard__row__key--grey' : 'keyboard__row__key--default'}`}
                         onClick={() => passLetter(letter)} 
                         key={letter}>{letter}
                     </button>
@@ -135,7 +166,7 @@ const Keyboard = () => {
             <div className="keyboard__row">
                 {keyboardRow2.map(letter => {
                     return <button 
-                        className="keyboard__row__key" 
+                    className={`keyboard__row__key ${greyLetters.includes(letter) ? 'keyboard__row__key--grey' : 'keyboard__row__key--default'}`}
                         onClick={() => passLetter(letter)} 
                         key={letter}>{letter}
                     </button>
@@ -151,7 +182,7 @@ const Keyboard = () => {
 
                 {keyboardRow3.map(letter => {
                     return <button 
-                        className="keyboard__row__key" 
+                    className={`keyboard__row__key ${greyLetters.includes(letter) ? 'keyboard__row__key--grey' : 'keyboard__row__key--default'}`}
                         onClick={() => passLetter(letter)} 
                         key={letter}>{letter}
                     </button>

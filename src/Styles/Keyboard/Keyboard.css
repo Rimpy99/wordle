@@ -13,8 +13,14 @@
   color: white;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  background-color: rgb(137, 171, 227);
   width: 70px;
+}
+.keyboard__row__key--default {
+  background-color: rgb(137, 171, 227);
+}
+.keyboard__row__key--grey {
+  background-color: rgb(137, 171, 227);
+  filter: brightness(0.5);
 }
 .keyboard__row__special-key {
   height: 70px;
@@ -30,4 +36,8 @@
 }
 .keyboard__row__key:hover, .keyboard__row__special-key:hover {
   scale: 1.1;
+}
+
+.grey-key {
+  background-color: red;
 }/*# sourceMappingURL=Keyboard.css.map */
