@@ -56,6 +56,14 @@ const Keyboard = () => {
         }
     }
 
+    const enterClicked = () => {
+        if(currentLetter[currentRowIndex][4]){
+            setCurrentRowIndex(current => current + 1)
+            setCurrentLetterIndex(current => current = 0)
+            console.log(currentRowIndex);
+        }
+    }
+
     const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
 
         const key = event.key.toUpperCase();
@@ -66,11 +74,7 @@ const Keyboard = () => {
 
             console.log('ENTER')
 
-            if(currentLetter[currentRowIndex][4]){
-                setCurrentRowIndex(current => current + 1)
-                setCurrentLetterIndex(current => current = 0)
-                console.log(currentRowIndex);
-            }
+            enterClicked();
 
         }else{
 
@@ -112,7 +116,7 @@ const Keyboard = () => {
                 })}
             </div>
             <div className="kb-row3">
-                <button>ENTER</button>
+                <button onClick={() => enterClicked()}>ENTER</button>
                 {keyboardRow3.map(letter => {
                     return <button onClick={() => passLetter(letter)} key={letter}>{letter}</button>
                 })}
