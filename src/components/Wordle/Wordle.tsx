@@ -1,55 +1,44 @@
+import { wordBankArray } from "./../../word-bank/wordBank";
+
 import Board from '../Board/Board';
 import Keyboard from '../Keyboard/Keyboard';
-
-import { wordBankArray } from "./../../word-bank/wordBank";
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
 
+import { changeWordBank } from '../../features/wordBankSlice';
 import { changeWord } from '../../features/wordSlice';
 import { changeIsWordGeneratedToTrue } from '../../features/isWordGeneratedSlice';
+
 
 import '../../Styles/Wordle/Wordle.css';
 
 const Wordle = () => {
 
-    const wordle = useSelector((state: RootState) => state.word.value);
+    const word = useSelector((state: RootState) => state.word.value);
+    const wordBank = useSelector((state: RootState) => state.wordBank.value);
     const dispatch = useDispatch();
 
     useEffect(() => {
 
-        const generateWord = async () => {
+        const prepareWordBank = () => {
 
+            dispatch(changeWordBank(wordBankArray));
 
+            dispatch(changeWord(wordBankArray[Math.floor(Math.random()*wordBankArray.length)].split('')))
 
-            // let wordSet;
-            // await fetch()
-            //     .then(response => response.text())
-            //     .then(result => {
-            //         // dispatch(changeWord(response[0].toUpperCase().split('')));
-            //         // dispatch(changeIsWordGeneratedToTrue());
-            //         // console.log(result);
-            //         const wordArr = result.split("\n")
-            //         wordSet = new Set(wordArr);
-            // })
-            
-            // console.log(wordSet)
-            // return { wordSet };
-
-            // const word = 'WITAM'
-
-            // dispatch(changeWord(word.toUpperCase().split('')));
-            // dispatch(changeIsWordGeneratedToTrue());
+            dispatch(changeIsWordGeneratedToTrue());
         }
 
-        generateWord()
+        prepareWordBank()
 
     }, [])
 
     useEffect(() => {
-        console.log(wordle);
-    }, [wordle])
+        console.log(word);
+        console.log(wordBank);
+    }, [word, wordBank])
 
     return(
         <div className="app-container">

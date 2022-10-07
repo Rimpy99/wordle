@@ -73,7 +73,7 @@ const Keyboard = () => {
 
 
     const takeBackLetter = () => {
-        if(currentLetterIndex > 0){
+        if(currentLetterIndex > 0 && !isWordMatching){
 
             dispatch(changeLetter({
                 rowIndex: currentRowIndex,
@@ -155,11 +155,7 @@ const Keyboard = () => {
             if(key === 'BACKSPACE'){
                 takeBackLetter();
             }else if(key === 'ENTER'){
-    
-                console.log('ENTER')
-    
                 enterClicked();
-    
             }else{
     
                 keyboardRow1.forEach(letter => {
