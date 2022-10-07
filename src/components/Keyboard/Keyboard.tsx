@@ -8,13 +8,19 @@ import './../../Styles/Keyboard/Keyboard.css';
 
 import { MdOutlineBackspace } from "react-icons/md";
 
-const Keyboard = () => {
+interface KeyboardProps {
+    setIsWordInWordBank: (status: boolean) => void,
+}
+
+const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank}) => {
     const dispatch = useDispatch();
 
     const keyboardRow1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
     const keyboardRow2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
     const keyboardRow3 = ["Z", "X", "C", "V", "B", "N", "M"];
 
+
+    const wordBank = useSelector((state: RootState) => state.wordBank.value);
 
 
     const [isWordGenerated, setIsWordGenerated] = useState<boolean>(true);
@@ -46,27 +52,26 @@ const Keyboard = () => {
 
     const passLetter = (letter: string) => {
 
-        if(isWordGenerated){
-            
-            if(currentLetterIndex <= 4 && currentRowIndex < 6){
+        if(isWordGenerated && 
+            currentLetterIndex <= 4 && 
+            currentRowIndex < 6 &&
+            currentBoard[currentRowIndex][currentLetterIndex].key === '' && 
+            currentBoard[currentRowIndex][currentLetterIndex].color === '')
+        {
                 
-                if(currentBoard[currentRowIndex][currentLetterIndex].key === '' && currentBoard[currentRowIndex][currentLetterIndex].color === ''){
-                    dispatch(changeLetter({ 
-                        rowIndex: currentRowIndex,
-                        letterIndex: currentLetterIndex,
-                        letterData: {
-                            key: letter,
-                            color: '',
-                        }
-                    }));
-                     
-                    if(currentLetterIndex < 5){
-                        setCurrentLetterIndex(current => current + 1);
-                    }
+            dispatch(changeLetter({ 
+                rowIndex: currentRowIndex,
+                letterIndex: currentLetterIndex,
+                letterData: {
+                    key: letter,
+                    color: '',
                 }
-    
+            }));
+                     
+            if(currentLetterIndex < 5){
+                setCurrentLetterIndex(current => current + 1);
             }
-
+                
         }
 
     }
@@ -90,57 +95,67 @@ const Keyboard = () => {
     }
 
     const enterClicked = () => {
+        
         if(currentBoard[currentRowIndex][4].key !== '' && !isWordMatching){
+            setIsWordInWordBank(true);
 
-            let wordIsTheSame = 0;
-   
-            currentBoard[currentRowIndex].forEach((letter, letterIndex) => {
+            let typedWord = '';
+            
+            for(let i = 0; i < 5; i++){
+                typedWord += currentBoard[currentRowIndex][i].key;
+            }
 
-                if(word.includes(letter.key)){
+            if(wordBank.includes(typedWord)){
 
-                    if(word[letterIndex] === letter.key){
-                        wordIsTheSame++;
-
-                        
-                        dispatch(changeLetter({ 
-                            rowIndex: currentRowIndex,
-                            letterIndex: letterIndex,
-                            letterData: {
-                                key: letter.key,
-                                color: 'green',
-                            }
-                        }));
-                        
-
+                let wordIsTheSame = 0;
+       
+                currentBoard[currentRowIndex].forEach((letter, letterIndex) => {
+    
+                    if(word.includes(letter.key)){
+    
+                        if(word[letterIndex] === letter.key){
+                            wordIsTheSame++;
+    
+                            
+                            dispatch(changeLetter({ 
+                                rowIndex: currentRowIndex,
+                                letterIndex: letterIndex,
+                                letterData: {
+                                    key: letter.key,
+                                    color: 'green',
+                                }
+                            }));
+                            
+    
+                        }else{
+                            dispatch(changeLetter({ 
+                                rowIndex: currentRowIndex,
+                                letterIndex: letterIndex,
+                                letterData: {
+                                    key: letter.key,
+                                    color: 'yellow',
+                                }
+                            }));
+                        }
+    
                     }else{
-                        dispatch(changeLetter({ 
-                            rowIndex: currentRowIndex,
-                            letterIndex: letterIndex,
-                            letterData: {
-                                key: letter.key,
-                                color: 'yellow',
-                            }
-                        }));
+                        setGreyLetters(state => [...state, letter.key]);
                     }
+                    
+                })
+                
 
+                if(wordIsTheSame === 5){
+                    setIsWordMatching(true);
                 }else{
-                    setGreyLetters(state => [...state, letter.key]);
+                    setCurrentRowIndex(current => current + 1);
+                    setCurrentLetterIndex(current => current = 0);
                 }
 
-                
-            })
 
-            if(wordIsTheSame === 5){
-                setIsWordMatching(true);
             }else{
-                setCurrentRowIndex(current => current + 1);
-                setCurrentLetterIndex(current => current = 0);
+                setIsWordInWordBank(false);
             }
-            
-
-            // if(currentLetter[currentRowIndex] == word){
-            //     console.log('trafiles!')
-            // }
         }
     }
 

@@ -18,6 +18,7 @@ import { getDefaultFormatCodeSettings } from "typescript";
 
 
 
+
 const wordStatusVariants = {
     hidden: {
         opacity: 0,
@@ -82,8 +83,7 @@ const Wordle = () => {
                 <Board/>
             </div>
             <div>
-                <button onClick={() => setIsWordInWordBank(!isWordInWordBank)}>gdgd</button>
-                <Keyboard/>
+                <Keyboard setIsWordInWordBank={setIsWordInWordBank}/>
             </div>
         </div>
     )
