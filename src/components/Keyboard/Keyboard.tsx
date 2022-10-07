@@ -93,7 +93,7 @@ const Keyboard = () => {
         if(currentBoard[currentRowIndex][4].key !== '' && !isWordMatching){
 
             let wordIsTheSame = 0;
-
+   
             currentBoard[currentRowIndex].forEach((letter, letterIndex) => {
 
                 if(word.includes(letter.key)){
@@ -148,7 +148,7 @@ const Keyboard = () => {
 
     const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
 
-        if(isWordGenerated){
+        if(isWordGenerated && !isWordMatching){
 
             const key = event.key.toUpperCase();
     

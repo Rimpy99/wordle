@@ -37,4 +37,13 @@
             }
         }
     }
+
+    &__word-status-container{
+        height: 50px;
+    }
+
+    &__word-status{
+        text-align: center;
+        color: rgb(255, 34, 34);
+    }
 }

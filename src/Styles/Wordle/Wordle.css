@@ -31,4 +31,11 @@
 }
 .app-container__header button:hover {
   scale: 1.1;
+}
+.app-container__word-status-container {
+  height: 50px;
+}
+.app-container__word-status {
+  text-align: center;
+  color: rgb(255, 34, 34);
 }/*# sourceMappingURL=Wordle.css.map */
