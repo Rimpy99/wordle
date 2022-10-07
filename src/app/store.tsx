@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import wordReducer from "../features/wordSlice";
 import boardReducer from "../features/boardSlice";
 import isWordGeneratedReducer from "../features/isWordGeneratedSlice";
+import wordBankReducer from "../features/wordBankSlice";
 
 const store = configureStore({
     reducer: {
         word: wordReducer,
         board: boardReducer,
         isWordGenerated: isWordGeneratedReducer,
+        wordBank: wordBankReducer,
     },
 })
 

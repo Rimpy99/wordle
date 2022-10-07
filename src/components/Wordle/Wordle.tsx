@@ -1,6 +1,8 @@
 import Board from '../Board/Board';
 import Keyboard from '../Keyboard/Keyboard';
 
+import { wordBankArray } from "./../../word-bank/wordBank";
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
@@ -17,30 +19,28 @@ const Wordle = () => {
 
     useEffect(() => {
 
-        const generateWord = () => {
-            // const options = {
-            //     method: 'GET',
-            //     headers: {
-            //         'X-RapidAPI-Key': '833b890155msh1ca20a36151e1fbp16e950jsn0081b518715c',
-            //         'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
-            //     }
-            // };
+        const generateWord = async () => {
+
+
+
+            // let wordSet;
+            // await fetch()
+            //     .then(response => response.text())
+            //     .then(result => {
+            //         // dispatch(changeWord(response[0].toUpperCase().split('')));
+            //         // dispatch(changeIsWordGeneratedToTrue());
+            //         // console.log(result);
+            //         const wordArr = result.split("\n")
+            //         wordSet = new Set(wordArr);
+            // })
             
-            // try{
-            //     fetch('https://random-words5.p.rapidapi.com/getMultipleRandom?count=1&wordLength=5', options)
-            //         .then(response => response.json())
-            //         .then(response => {
-            //             dispatch(changeWord(response[0].toUpperCase().split('')));
-            //             dispatch(changeIsWordGeneratedToTrue());
-            //         })
-            // }catch(err){
-            //     console.error(err);
-            // };
+            // console.log(wordSet)
+            // return { wordSet };
 
-            const word = 'WITAM'
+            // const word = 'WITAM'
 
-            dispatch(changeWord(word.toUpperCase().split('')));
-            dispatch(changeIsWordGeneratedToTrue());
+            // dispatch(changeWord(word.toUpperCase().split('')));
+            // dispatch(changeIsWordGeneratedToTrue());
         }
 
         generateWord()
