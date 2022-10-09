@@ -31,4 +31,26 @@
 }
 .board-container__row__letter--yellow {
   background-color: rgb(255, 221, 0);
+}
+
+@media all and (max-width: 1000px) {
+  .board-container {
+    width: 380px;
+  }
+  .board-container__row__letter {
+    width: 70px;
+    height: 70px;
+    margin: 10px 0;
+  }
+}
+@media all and (max-width: 400px) {
+  .board-container {
+    width: 330px;
+  }
+  .board-container__row__letter {
+    width: 60px;
+    height: 60px;
+    margin: 7px 0;
+    font-size: 40px;
+  }
 }/*# sourceMappingURL=Board.css.map */

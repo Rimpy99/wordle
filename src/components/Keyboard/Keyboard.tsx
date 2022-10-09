@@ -42,11 +42,7 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank, setIsGameOver, 
     const [greyLetters, setGreyLetters] =  useState<string[]>([]);
 
 
-    const [currentRowIndex, setCurrentRowIndex] = useState<number>(0); 
-
-    useEffect(()=>{
-        console.log(currentRowIndex);
-    }, [currentRowIndex]);    
+    const [currentRowIndex, setCurrentRowIndex] = useState<number>(0);   
 
     const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0); 
 
@@ -92,8 +88,6 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank, setIsGameOver, 
                 setCurrentLetterIndex(current => current + 1);
             }
                 
-        }else if(currentRowIndex === 6){
-            console.log('game over');
         }
 
     }

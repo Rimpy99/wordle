@@ -39,3 +39,34 @@
         }
     }
 }
+
+@media all and (max-width: 1000px){
+    .board-container{
+        width: calc(5*70px + 6*5px);
+
+        &__row{
+
+            &__letter{
+                width: 70px;
+                height: 70px;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 400px){
+    .board-container{
+        width: calc(5*60px + 6*5px);
+
+        &__row{
+
+            &__letter{
+                width: 60px;
+                height: 60px;
+                margin: 7px 0;
+                font-size: 40px;
+            }
+        }
+    }
+}

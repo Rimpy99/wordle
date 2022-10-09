@@ -60,10 +60,6 @@ const Wordle = () => {
     const [isGameOver, setIsGameOver] = useState<{status: boolean; text: string}>({status: false, text: ''});
 
     useEffect(() => {
-        console.log(`GAME OVER?: ${isGameOver.status} ${isGameOver.text}`)
-    }, [isGameOver])
-
-    useEffect(() => {
 
         const prepareWordBank = () => {
 
@@ -85,10 +81,6 @@ const Wordle = () => {
         setIsGameOver({status: false, text: ''})
         setIsGameRefreshed(false)
     }
-
-    useEffect(() => {
-        console.log(word);
-    }, [word])
 
     const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
         const key = event.key.toUpperCase();

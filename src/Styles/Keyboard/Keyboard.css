@@ -40,4 +40,35 @@
 
 .grey-key {
   background-color: red;
+}
+
+@media all and (max-width: 1000px) {
+  .keyboard__row__key {
+    height: 35px;
+    margin: 2px;
+    font-size: 18px;
+    width: 35px;
+  }
+  .keyboard__row__special-key {
+    height: 35px;
+    margin: 2px;
+    font-size: 18px;
+    background-color: rgb(230, 114, 139);
+    width: 60px;
+  }
+}
+@media all and (max-width: 400px) {
+  .keyboard__row__key {
+    height: 30px;
+    margin: 2px;
+    font-size: 15px;
+    width: 30px;
+  }
+  .keyboard__row__special-key {
+    height: 30px;
+    margin: 2px;
+    font-size: 15px;
+    background-color: rgb(230, 114, 139);
+    width: 50px;
+  }
 }/*# sourceMappingURL=Keyboard.css.map */

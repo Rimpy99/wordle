@@ -51,3 +51,57 @@
 .grey-key{
     background-color: red;
 }
+
+@media all and (max-width: 1000px){
+    @mixin sameStylesForKeys{
+        height: 35px;
+        margin: 2px;
+        font-size: 18px;
+    }
+
+    .keyboard{
+
+        &__row{
+
+            &__key{
+                @include sameStylesForKeys;
+
+                width: 35px;
+            }
+
+            &__special-key{
+                @include sameStylesForKeys; 
+                
+                background-color: Variables.$pink;
+                width: 60px;
+            }
+        }
+    }
+}
+
+@media all and (max-width: 400px){
+    @mixin sameStylesForKeys{
+        height: 30px;
+        margin: 2px;
+        font-size: 15px;
+    }
+
+    .keyboard{
+
+        &__row{
+
+            &__key{
+                @include sameStylesForKeys;
+
+                width: 30px;
+            }
+
+            &__special-key{
+                @include sameStylesForKeys; 
+                
+                background-color: Variables.$pink;
+                width: 50px;
+            }
+        }
+    }
+}

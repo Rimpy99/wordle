@@ -19,20 +19,6 @@
   font-size: 80px;
   color: rgb(230, 114, 139);
 }
-.app-container__header button {
-  padding: 10px;
-  background-color: rgb(137, 171, 227);
-  border: none;
-  border-radius: 5px;
-  letter-spacing: 1px;
-  color: white;
-  cursor: pointer;
-  transition: scale 0.2s ease-in-out;
-  font-size: 20px;
-}
-.app-container__header button:hover {
-  scale: 1.1;
-}
 .app-container__word-status-container {
   height: 50px;
 }
@@ -89,4 +75,24 @@
 }
 .app-container__game-over__content__btn:hover {
   scale: 1.1;
+}
+
+@media all and (max-width: 1000px) {
+  .app-container {
+    justify-content: space-evenly;
+  }
+  .app-container__header h1 {
+    font-weight: 800;
+    letter-spacing: 3px;
+    font-size: 50px;
+    color: rgb(230, 114, 139);
+  }
+  .app-container__word-status-container {
+    height: 20px;
+  }
+  .app-container__word-status {
+    text-align: center;
+    color: rgb(255, 34, 34);
+    font-size: 18px;
+  }
 }/*# sourceMappingURL=Wordle.css.map */

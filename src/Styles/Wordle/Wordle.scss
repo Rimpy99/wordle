@@ -21,22 +21,6 @@
             font-size: 80px;
             color: Variables.$pink;
         }
-
-        button{
-            padding: 10px;
-            background-color: Variables.$blue;
-            border: none;
-            border-radius: 5px;
-            letter-spacing: 1px;
-            color: white;
-            cursor: pointer;
-            transition: scale .2s ease-in-out;
-            font-size: 20px;
-
-            &:hover{
-                scale: 1.1;
-            }
-        }
     }
 
     &__word-status-container{
@@ -107,6 +91,28 @@
     }
 }
 
-// @media all and (max-width: 700px){
+@media all and (max-width: 1000px){
+    .app-container{
+        justify-content: space-evenly;
 
-// }
+        &__header{
+    
+            h1{
+                font-weight: 800;
+                letter-spacing: 3px;
+                font-size: 50px;
+                color: Variables.$pink;
+            }
+        }
+
+        &__word-status-container{
+            height: 20px;
+        }
+    
+        &__word-status{
+            text-align: center;
+            color: rgb(255, 34, 34);
+            font-size: 18px;
+        }
+    }
+}
