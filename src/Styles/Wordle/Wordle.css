@@ -61,11 +61,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 .app-container__game-over__content__text {
   font-size: 25px;
   text-align: center;
-  padding: 50px;
 }
 .app-container__game-over__content__text--correct {
   color: green;
@@ -76,4 +76,17 @@
 .app-container__game-over__content__word {
   font-size: 70px;
   letter-spacing: 5px;
+}
+.app-container__game-over__content__btn {
+  font-size: 20px;
+  background-color: rgb(137, 171, 227);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+.app-container__game-over__content__btn:hover {
+  scale: 1.1;
 }/*# sourceMappingURL=Wordle.css.map */

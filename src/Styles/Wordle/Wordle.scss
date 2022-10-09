@@ -68,11 +68,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: space-evenly;
 
             &__text{
                 font-size: 25px;
                 text-align: center;
-                padding: 50px;
 
                 &--correct{
                     color: green;
@@ -87,7 +87,26 @@
                 font-size: 70px;
                 letter-spacing: 5px;
             }
+
+            &__btn{
+                font-size: 20px;
+                background-color: Variables.$blue;
+                color: white;
+                border-radius: 5px;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+                transition: all .2s ease-out;
+
+                &:hover{
+                    scale:  1.1;
+                }
+            }
         }
 
     }
 }
+
+// @media all and (max-width: 700px){
+
+// }

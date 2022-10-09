@@ -28,9 +28,19 @@ export const boardSlice = createSlice({
             state.value[action.payload.rowIndex][action.payload.letterIndex].key = action.payload.letterData.key;
             state.value[action.payload.rowIndex][action.payload.letterIndex].color = action.payload.letterData.color;
         },
+        refreshBoard: (state) => {
+            state.value = [
+                [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+                [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+                [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+                [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+                [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+                [{key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}, {key: '',color: '',}],
+            ]
+        }
     }
 })
 
-export const { changeLetter } = boardSlice.actions;
+export const { changeLetter, refreshBoard } = boardSlice.actions;
 
 export default boardSlice.reducer;

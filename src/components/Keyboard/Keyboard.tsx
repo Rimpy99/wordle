@@ -11,9 +11,11 @@ import { MdOutlineBackspace } from "react-icons/md";
 interface KeyboardProps {
     setIsWordInWordBank: (status: boolean) => void,
     setIsGameOver: (status: {status: boolean; text: string}) => void,
+    isGameRefreshed: boolean,
+    setIsGameRefreshed: (status: boolean) => void,
 }
 
-const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank, setIsGameOver}) => {
+const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank, setIsGameOver, isGameRefreshed, setIsGameRefreshed}) => {
     const dispatch = useDispatch();
 
     const keyboardRow1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
@@ -41,15 +43,28 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank, setIsGameOver})
 
 
     const [currentRowIndex, setCurrentRowIndex] = useState<number>(0); 
+
     useEffect(()=>{
         console.log(currentRowIndex);
     }, [currentRowIndex]);    
+
     const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0); 
+
     const currentBoard = useSelector((state: RootState) => state.board.value)
 
 
 
     const [isWordMatching, setIsWordMatching] = useState<boolean>(false);
+
+
+
+    useEffect(() => {
+        setGreyLetters([])
+        setCurrentRowIndex(0)
+        setCurrentLetterIndex(0)
+        setIsWordMatching(false)
+        setIsGameRefreshed(true)
+    }, [isGameRefreshed])
 
 
 

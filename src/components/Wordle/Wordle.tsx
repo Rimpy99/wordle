@@ -7,6 +7,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
 
+import { refreshBoard } from "../../features/boardSlice";
 import { changeWordBank } from '../../features/wordBankSlice';
 import { changeWord } from '../../features/wordSlice';
 import { changeIsWordGeneratedToTrue } from '../../features/isWordGeneratedSlice';
@@ -55,6 +56,7 @@ const Wordle = () => {
     const dispatch = useDispatch();
 
     const [isWordInWordBank, setIsWordInWordBank] = useState<boolean>(true);
+    const [isGameRefreshed, setIsGameRefreshed] = useState<boolean>(true);
     const [isGameOver, setIsGameOver] = useState<{status: boolean; text: string}>({status: false, text: ''});
 
     useEffect(() => {
@@ -75,6 +77,14 @@ const Wordle = () => {
         prepareWordBank()
 
     }, [])
+
+    const tryAgain = () => {
+        dispatch(changeWord(wordBankArray[Math.floor(Math.random()*wordBankArray.length)].split('')))
+        dispatch(refreshBoard());
+        dispatch(changeIsWordGeneratedToTrue());
+        setIsGameOver({status: false, text: ''})
+        setIsGameRefreshed(false)
+    }
 
     useEffect(() => {
         console.log(word);
@@ -122,7 +132,12 @@ const Wordle = () => {
                 <Board/>
             </div>
             <div>
-                <Keyboard setIsWordInWordBank={setIsWordInWordBank} setIsGameOver={setIsGameOver}/>
+                <Keyboard 
+                    setIsWordInWordBank={setIsWordInWordBank} 
+                    setIsGameOver={setIsGameOver}
+                    isGameRefreshed={isGameRefreshed}
+                    setIsGameRefreshed={setIsGameRefreshed}
+                    />
             </div>
             <AnimatePresence>
                 {
@@ -147,6 +162,7 @@ const Wordle = () => {
                                         {isGameOver.text}
                                     </h3>
                             <h3 className="app-container__game-over__content__word">{word}</h3>
+                            <button className="app-container__game-over__content__btn" onClick={() => tryAgain()}>TRY AGAIN</button>
                         </motion.div>
                     </motion.div>
                 }
