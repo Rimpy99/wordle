@@ -10,9 +10,10 @@ import { MdOutlineBackspace } from "react-icons/md";
 
 interface KeyboardProps {
     setIsWordInWordBank: (status: boolean) => void,
+    setIsGameOver: (status: {status: boolean; text: string}) => void,
 }
 
-const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank}) => {
+const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank, setIsGameOver}) => {
     const dispatch = useDispatch();
 
     const keyboardRow1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
@@ -39,8 +40,10 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank}) => {
     const [greyLetters, setGreyLetters] =  useState<string[]>([]);
 
 
-    
     const [currentRowIndex, setCurrentRowIndex] = useState<number>(0); 
+    useEffect(()=>{
+        console.log(currentRowIndex);
+    }, [currentRowIndex]);    
     const [currentLetterIndex, setCurrentLetterIndex] = useState<number>(0); 
     const currentBoard = useSelector((state: RootState) => state.board.value)
 
@@ -49,6 +52,8 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank}) => {
     const [isWordMatching, setIsWordMatching] = useState<boolean>(false);
 
 
+
+    //FUNCTIONS:
 
     const passLetter = (letter: string) => {
 
@@ -72,6 +77,8 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank}) => {
                 setCurrentLetterIndex(current => current + 1);
             }
                 
+        }else if(currentRowIndex === 6){
+            console.log('game over');
         }
 
     }
@@ -145,8 +152,14 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank}) => {
                 })
                 
 
-                if(wordIsTheSame === 5){
+                if(wordIsTheSame === 5 && currentRowIndex === 5){ 
                     setIsWordMatching(true);
+                    setIsGameOver({status: true, text: 'CORRECT !'});
+                }else if(wordIsTheSame === 5){
+                    setIsWordMatching(true);
+                    setIsGameOver({status: true, text: 'CORRECT !'});
+                }else if(currentRowIndex === 5){
+                    setIsGameOver({status: true, text: 'THE WORD WAS'});
                 }else{
                     setCurrentRowIndex(current => current + 1);
                     setCurrentLetterIndex(current => current = 0);
@@ -160,6 +173,8 @@ const Keyboard: React.FC<KeyboardProps> = ({setIsWordInWordBank}) => {
     }
 
 
+
+    //useCallback:
 
     const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
 

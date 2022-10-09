@@ -3,7 +3,7 @@ import { wordBankArray } from "./../../word-bank/wordBank";
 import Board from '../Board/Board';
 import Keyboard from '../Keyboard/Keyboard';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../app/store";
 
@@ -14,9 +14,6 @@ import { changeIsWordGeneratedToTrue } from '../../features/isWordGeneratedSlice
 import { AnimatePresence, motion } from 'framer-motion'
 
 import '../../Styles/Wordle/Wordle.css';
-import { getDefaultFormatCodeSettings } from "typescript";
-
-
 
 
 const wordStatusVariants = {
@@ -30,13 +27,39 @@ const wordStatusVariants = {
     }
 }
 
+const gameOverBgVariants = {
+    hidden: {
+        opacity: 0,
+    },
+    visible: {
+        opacity: 1,
+        transition: { duration: .5 }
+    }
+}
+
+const gameOverContentVariants = {
+    hidden: {
+        opacity: 0,
+        y: "-600px"
+    },
+    visible: {
+        opacity: 1,
+        y: "0",
+        transition: { duration: .5, delay: .2 }
+    }
+}
+
 const Wordle = () => {
 
     const word = useSelector((state: RootState) => state.word.value);
-    const wordBank = useSelector((state: RootState) => state.wordBank.value);
     const dispatch = useDispatch();
 
     const [isWordInWordBank, setIsWordInWordBank] = useState<boolean>(true);
+    const [isGameOver, setIsGameOver] = useState<{status: boolean; text: string}>({status: false, text: ''});
+
+    useEffect(() => {
+        console.log(`GAME OVER?: ${isGameOver.status} ${isGameOver.text}`)
+    }, [isGameOver])
 
     useEffect(() => {
 
@@ -55,8 +78,24 @@ const Wordle = () => {
 
     useEffect(() => {
         console.log(word);
-        console.log(wordBank);
-    }, [word, wordBank])
+    }, [word])
+
+    const addSignFromKeyboard = useCallback((event: KeyboardEvent) => {
+        const key = event.key.toUpperCase();
+
+        key === "ESCAPE" && setIsGameOver({status: false, text: ''})
+    }, []);
+
+    useEffect(() => {
+        if(isGameOver.status){
+            document.addEventListener('keydown', addSignFromKeyboard);
+    
+            return () => {
+                document.removeEventListener('keydown', addSignFromKeyboard)
+            }
+        }
+
+    }, [addSignFromKeyboard, isGameOver])
 
     return(
         <div className="app-container">
@@ -83,8 +122,35 @@ const Wordle = () => {
                 <Board/>
             </div>
             <div>
-                <Keyboard setIsWordInWordBank={setIsWordInWordBank}/>
+                <Keyboard setIsWordInWordBank={setIsWordInWordBank} setIsGameOver={setIsGameOver}/>
             </div>
+            <AnimatePresence>
+                {
+                    isGameOver.status && 
+                    <motion.div 
+                        className="app-container__game-over" onClick={() => setIsGameOver({status: false, text: ''})}
+                        variants={gameOverBgVariants}
+                        initial={'hidden'}
+                        animate={'visible'}
+                        exit={{opacity: 0, transition: { duration: .5, delay: .2 }}}
+                    >
+                        <motion.div 
+                            className="app-container__game-over__content" onClick={(event) =>  event.stopPropagation()}
+                            variants={gameOverContentVariants}
+                            initial={'hidden'}
+                            animate={'visible'}
+                            exit={{opacity: 0, y: "-600px", transition: { duration: .5 }}}
+                        >
+                            <h3 
+                                className={`app-container__game-over__content__text 
+                                    app-container__game-over__content__text--${isGameOver.text === "CORRECT !" ? "correct" : "incorrect"}`}>
+                                        {isGameOver.text}
+                                    </h3>
+                            <h3 className="app-container__game-over__content__word">{word}</h3>
+                        </motion.div>
+                    </motion.div>
+                }
+            </AnimatePresence>
         </div>
     )
 };
